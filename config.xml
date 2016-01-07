@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Hello World</name>
+<widget id="com.phonegap.hd-tracker-app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>HD-Tracker-App</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Harley Davidson motorcycle companion app developed by Sean Kramer in collaboration with Nicholas Hooyman.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="sknhapps@gmail.com" href="http://phonegap.com">
+        Sean Kramer (Nicholas Hooyman)
     </author>
     <content src="index.html" />
     <preference name="permissions" value="none" />
