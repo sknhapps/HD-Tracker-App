@@ -20,74 +20,423 @@
     under the License.
 -->
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Ride</title>
-    </head>
-    <body>
-		<!--Back Arrow-->
-		<a href="index.html"><img src="img\backarrow.png" alt="backarrow" class="backarrow"></img></a>
+<head>
+	<title>Geocoding Browser Position Using Javascript's Geolocation API</title>
+	<meta name="author" content="Bob Cravens" />
+	<link type="image/png" href="../../Content/images/author_icon.png" rel="shortcut icon" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+ 
+	<style type="text/css">
+ 
+		html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6, ul, li {
+			margin: 0;
+			padding: 0;
+			-webkit-text-size-adjust:none;
+		}
+		body
+		{
+			font: 14px/100% Arial, Helvetica, sans-serif;
+		}
 		
-		<!--Basic Google Maps-->
-		<p id="demo">Click the button to get your position.</p>
+		#page-wrap
+		{
+		    overflow: auto;
+		    padding: 10px;
+		    text-align: center;
+		}
+		#content-left,
+		#content-right,
+		#content-normal,
+		#content-flipped
+		{
+		    display: none;
+		}
+		
+		.show-normal,
+		.show-flipped
+		{
+		    width: 320px;
+		}
+		.show-left,
+		.show-right
+		{
+		    width: 480px;
+		}
+		
+		.show-left #content-left,
+		.show-right #content-right,
+		.show-normal #content-normal,
+		.show-flipped #content-flipped
+		{
+		    display: block;
+		}		
+		#mapContainer {
+			margin: 10px 0 0 0;
+			height: 200px;
+			width: 100%;
+		}
+		#ctrls ul
+		{
+		    list-style: none;
+		    padding: 20px;
+		}
+		#ctrls ul li
+		{
+		    margin: 0 0 10px 0;
+		}
+		/* CSS3 Gradient Buttons http://www.webdesignerwall.com/tutorials/css3-gradient-buttons/ */
+		/* button */
+		.button {
+			margin: 0 0 10px 0;
+			padding: 10px 0;
+			font-size: 24px;
+			line-height: 30px;
+			display: block;
+			outline: none;
+			cursor: pointer;
+			text-align: center;
+			text-decoration: none;
+			text-shadow: 0 1px 1px rgba(0,0,0,.3);
+			-webkit-border-radius: .5em;
+			-moz-border-radius: .5em;
+			border-radius: .5em;
+			-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+			-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+			box-shadow: 0 1px 2px rgba(0,0,0,.2);
+		}
+		.button:hover {
+			text-decoration: none;
+		}
+		.button:active {
+			position: relative;
+			top: 1px;
+		} 
+ 
+		/* red */
+		.red {
+			color: #faddde;
+			border: solid 1px #980c10;
+			background: #d81b21;
+			background: -webkit-gradient(linear, left top, left bottom, from(#ed1c24), to(#aa1317));
+			background: -moz-linear-gradient(top,  #ed1c24,  #aa1317);
+			filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ed1c24', endColorstr='#aa1317');
+		}
+		.red:hover {
+			background: #b61318;
+			background: -webkit-gradient(linear, left top, left bottom, from(#c9151b), to(#a11115));
+			background: -moz-linear-gradient(top,  #c9151b,  #a11115);
+			filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#c9151b', endColorstr='#a11115');
+		}
+		.red:active {
+			color: #de898c;
+			background: -webkit-gradient(linear, left top, left bottom, from(#aa1317), to(#ed1c24));
+			background: -moz-linear-gradient(top,  #aa1317,  #ed1c24);
+			filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#aa1317', endColorstr='#ed1c24');
+		}		 
+		/* blue */
+		.blue {
+			color: #d9eef7;
+			border: solid 1px #0076a3;
+			background: #0095cd;
+			background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+			background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+			filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00adee', endColorstr='#0078a5');
+		}
+		.blue:hover {
+			background: #007ead;
+			background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+			background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+			filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095cc', endColorstr='#00678e');
+		}
+		.blue:active {
+			color: #80bed6;
+			background: -webkit-gradient(linear, left top, left bottom, from(#0078a5), to(#00adee));
+			background: -moz-linear-gradient(top,  #0078a5,  #00adee);
+			filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0078a5', endColorstr='#00adee');
+		}
+		/* green */
+		.green {
+			color: #e8f0de;
+			border: solid 1px #538312;
+			background: #64991e;
+			background: -webkit-gradient(linear, left top, left bottom, from(#7db72f), to(#4e7d0e));
+			background: -moz-linear-gradient(top,  #7db72f,  #4e7d0e);
+			filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#7db72f', endColorstr='#4e7d0e');
+		}
+		.green:hover {
+			background: #538018;
+			background: -webkit-gradient(linear, left top, left bottom, from(#6b9d28), to(#436b0c));
+			background: -moz-linear-gradient(top,  #6b9d28,  #436b0c);
+			filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#6b9d28', endColorstr='#436b0c');
+		}
+		.green:active {
+			color: #a9c08c;
+			background: -webkit-gradient(linear, left top, left bottom, from(#4e7d0e), to(#7db72f));
+			background: -moz-linear-gradient(top,  #4e7d0e,  #7db72f);
+			filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#4e7d0e', endColorstr='#7db72f');
+		}
+		/* END CSS3 Gradient Buttons */
+	</style>
+	<!--- Include jQuery and Google Map scripts. --->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>
+</head>
+<body onorientationchange="updateOrientation();">
+ 	<div id="page-wrap">
+ 	 	<div id="ctrls">
+ 	 		<ul>
+	 		<li><a id="toggle" href="#" class="button green">Start Trip</a></li>
+	 		<li><a id="reset" href="#" class="button blue">Clear Trip</a></li>
+	 		<li><a id="map" href="#" class="button blue">Map It</a></li>
+	 		</ul>
+	 		<div id="count">0 Points</div>
+	 		<div id="location">Unknown</div>
+	 		<div id="distance">0 miles</div>
+	 	</div>
+		<div id="mapContainer">
+			<!-- This is where Google map will go. --->
+		</div>
+	</div>
 
-		<button onclick="getLocation()">Try It</button>
+ 
+	<script type="text/javascript">
+		$(document).load(function () {
+            updateOrientation();
+        });
 
-		<div id="mapholder"></div>
+        function updateOrientation() {
+            var contentType = "show_";
+            switch (window.orientation) {
+                case 0:
+                    contentType += "normal";
+                    break;
+                case -90:
+                    contentType += "right";
+                    break;
+                case 90:
+                    contentType += "left";
+                    break;
+                case 180:
+                    contentType += "flipped";
+                    break;
+            }
+            document.getElementById("page-wrap").setAttribute("class", contentType);
+        }
+		
+ 		var pts = [];				// All the GPS points
+ 		var distIndex = 1;			// Index for distance calculation
+ 		var totalDistance = 0.0;	// Total distance travelled
+ 		var currentLat = 0.0;		// Current latitude
+		var currentLng = 0.0;		// Current longitude
+		var accuracy = 0.0;			// Current accuracy in miles
+		var minDistance = 0.05; 	// Minimum distance (miles) between collected points.
+		var isStarted = false;		// Flag tracking the application state.
+		var map = null;				// The map
+		var markers = [];			// Container for the map markers
+ 		var positionTimer;			// The id of the position timer.
+		
+ 		$("#toggle").click(function(evt){
+ 			evt.preventDefault();
+ 			if(!isStarted){
+ 				$(this).html("End Trip").removeClass("green").addClass("red");
+ 				startGps();
+ 				isStarted = true;
+ 			}else{
+ 				$(this).html("Start Trip").removeClass("red").addClass("green");
+ 				stopGps();
+				chromePoints(totalDistance);
+ 				isStarted = false;
+ 			}
+ 		});
+ 		$("#reset").click(function(evt){
+ 			evt.preventDefault();
+ 			if(confirm("Clear the data?")){
+ 				pts = [];
+ 				distIndex = 1;
+ 				totalDistance = 0.0;
+ 				currentLat = 0;
+ 				currentLng = 0;
+ 				accuracy = 0;
+ 				updateStatus();
+ 				clearMarkers();
+ 			}
+ 		})
+ 		$("#map").click(function(evt){
+ 			evt.preventDefault();
+ 			showPoints();
+ 		})
+		
+ 		function updateStatus(){
+ 			$("#count").html(pts.length + " Points");
+ 			$("#location").html("(" + currentLat.toFixed(4) + "," + currentLng.toFixed(4) + ") <br />&plusmn;" + accuracy.toFixed(4) + "miles");
+ 			for(var i=distIndex;i<pts.length;i++){
+ 				totalDistance += distance(
+ 					pts[i-1].coords.latitude,
+ 					pts[i-1].coords.longitude,
+ 					pts[i].coords.latitude,
+ 					pts[i].coords.longitude
+ 				);
+ 			}
+ 			distIndex = pts.length;
+ 			$("#distance").html(totalDistance.toFixed(4) + " miles");
+ 		}
 
-		<script src="http://maps.google.com/maps/api/js"></script>
-
-		<script>
-		var x = document.getElementById("demo");
-		function getLocation() {
+ 		
+		var mapContainer = $( "#mapContainer" );
+		map = new google.maps.Map(
+			mapContainer[ 0 ],
+			{
+				zoom: 1,
+				center: new google.maps.LatLng(
+					0,
+					0
+				),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+		);
+ 
+ 		function startGps(){
+			// Check to see if this browser supports geolocation.
 			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(showPosition, showError);
-			} else { 
-				x.innerHTML = "Geolocation is not supported by this browser.";
+	 
+				positionTimer = navigator.geolocation.watchPosition(
+					function( position ){
+						if(position.coords.accuracy/609.344>0.5){	// 609.344 meters per mile
+							// First point has low accuracy (cell phone or IP geolocation)
+							// Ignore all low accuracy points.
+							return;
+						}
+						var dist = distance(currentLat, currentLng, position.coords.latitude, position.coords.longitude);
+						if(dist<minDistance){
+							// Ignore points that are within a certain distance to the last point.
+							return;
+						}
+										
+						pts.push(position);
+				
+						// Track current position
+						accuracy = position.coords.accuracy/609.344; // 609.344 meters per mile
+						currentLat = position.coords.latitude;
+						currentLng = position.coords.longitude;
+						
+						// Update the status
+						updateStatus();
+					},
+					function( error ){
+						console.log( "Something went wrong: ", error );
+					},
+					{
+						timeout: (60 * 1000),
+						maximumAge: (1000),
+						enableHighAccuracy: true
+					}
+				);
+	 
+			} else {
+				alert("Your browser does not support geo-location.");
 			}
 		}
+		
+		function stopGps(){
+			navigator.geolocation.clearWatch(positionTimer);
+			positionTimer = null;
+		}
 
-		function showPosition(position) {
-			lat = position.coords.latitude;
-			lon = position.coords.longitude;
-			latlon = new google.maps.LatLng(lat, lon)
-			mapholder = document.getElementById('mapholder')
-			mapholder.style.height = '250px';
-			mapholder.style.width = '100%';
-
-			var myOptions = {
-			center:latlon,zoom:14,
-			mapTypeId:google.maps.MapTypeId.ROADMAP,
-			mapTypeControl:false,
-			navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
-			}
+ 		function distance(lat1, lng1, lat2, lng2) {
+			var radius = 3956.0; // miles
 			
-			var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
-			var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
+			var deltaLat = ToRadians(lat2 - lat1);
+			var deltaLng = ToRadians(lng2 - lng1);
+			var sinLat = Math.sin(0.5*deltaLat);
+			var sinLng = Math.sin(0.5*deltaLng);
+			var cosLat1 = Math.cos(ToRadians(lat1));
+			var cosLat2 = Math.cos(ToRadians(lat2));
+			var h1 = sinLat*sinLat + cosLat1*cosLat2*sinLng*sinLng;
+			var h2 = Math.sqrt(h1);
+			var h3 = 2*Math.asin(Math.min(1, h2));
+			var distance = radius*h3;
+			return distance;
 		}
-
-		function showError(error) {
-			switch(error.code) {
-				case error.PERMISSION_DENIED:
-					x.innerHTML = "User denied the request for Geolocation."
-					break;
-				case error.POSITION_UNAVAILABLE:
-					x.innerHTML = "Location information is unavailable."
-					break;
-				case error.TIMEOUT:
-					x.innerHTML = "The request to get user location timed out."
-					break;
-				case error.UNKNOWN_ERROR:
-					x.innerHTML = "An unknown error occurred."
-					break;
+		
+		function ToRadians(degree) {
+			return (degree * (Math.PI / 180));
+		}
+		
+		function showPoints(){
+			clearMarkers();
+			if(pts.length==0){
+				map.setCenter(new google.maps.LatLng(0,0));
+				map.setZoom(1);
+				return;
+			}
+			var maxLat = -500.0;
+			var minLat = 500.0;
+			var maxLng = -500.0;
+			var minLng = 500.0;
+			for(var i=0;i<pts.length;i++){
+				var lat = pts[i].coords.latitude;
+				var lng = pts[i].coords.longitude;
+				if(lat>maxLat){maxLat = lat;}
+				if(lat<minLat){minLat = lat;}
+				if(lng>maxLng){maxLng = lng;}
+				if(lng<minLng){minLng = lng;}
+				addMarker(lat, lng);
+			}
+			if(maxLat==minLat){
+				maxLat += 0.5;
+				minLat -= 0.5;
+			}
+			if(minLng==maxLng){
+				minLng -= 0.5;
+				maxLng += 0.5;
+			}
+			var sw = new google.maps.LatLng(minLat, minLng);
+			var ne = new google.maps.LatLng(maxLat, maxLng);
+			var bounds = new google.maps.LatLngBounds(sw, ne);
+			map.fitBounds(bounds);
+		}
+		
+		function clearMarkers(){
+			for(var i=0;i<markers.length;i++){
+				marker[i].setMap(null);
+				marker[i] = null;
+			}	
+			markers = [];
+		}
+		
+		function addMarker( latitude, longitude, label ){
+			var marker = new google.maps.Marker({
+				map: map,
+				position: new google.maps.LatLng(
+					latitude,
+					longitude
+				),
+				title: (label || "")
+			});
+			markers.push(marker);
+		}
+		
+		function chromePoints(distance) {
+			var chromepoints = 0
+			if (distance > 0) {
+				chromepoints = 0.5(distance) + 15
+				window.alert("Congratulations, you've earned " + chromepoints + "chromepoints on your ride!")
+			} else {
+				window.alert("Sorry, your ride was too short to award chromepoints for, get out and ride!")
 			}
 		}
-		</script>
-
-    </body>
+ 
+	</script>
+	<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-9606082-1");
+			pageTracker._trackPageview();
+		} catch (err) { }
+	</script>
+ 
+</body>
 </html>
