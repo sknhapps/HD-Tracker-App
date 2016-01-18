@@ -16,14 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ hr {
+	border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+	width:75%;
+ }
  
  /*Controls*/
  .backarrow {
-	 position: relative;
-	 top: 5px;
-	 left: 5px;
-	 width: 50px;
-	 height: 50px;
+	 position: relative !important;
+	 top: 5px !important;
+	 left: 5px !important;
+	 width: 10% !important;
+	 height: 10% !important;
  }
 /*Main Menu*/
 .main_menu {
@@ -40,4 +47,17 @@
 }
 
 /*Showcase*/
+
+/*Profile*/
+.chromepoints {
+	text-align:center;
+}
+.deleteprofile {
+	margin:auto;
+	text-align:center;
+	border-style:solid;
+	border-width:1px;
+	background-color:orange;
+	width:50%;
+}
 
