@@ -32,6 +32,10 @@
 	 width: 10% !important;
 	 height: 10% !important;
  }
+ .ride_controls {
+	 text-align:center;
+	 
+ }
 /*Main Menu*/
 .main_menu {
 	text-align: center;
