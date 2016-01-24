@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.phonegap.hd-tracker-app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>HD-Tracker-App</name>
+    <name>HD Tracker</name>
     <description>
         Harley Davidson motorcycle companion app developed by Sean Kramer in collaboration with Nicholas Hooyman.
     </description>
