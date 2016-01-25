@@ -32,32 +32,31 @@
 	<script type="text/javascript" src="js/index.js"></script>
 	
 	<!--Load variables-->
-		<script>
-		function load() {
-			var savegame = JSON.parse(localStorage.getItem("save"));
-			if (typeof savegame.chromePoints !== "undefined") chromePoints = savegame.chromePoints;
-		}
-		window.onload = load;
-		</script>
+	<script>
+	function load() {
+		var savegame = JSON.parse(localStorage.getItem("save"));
+		if (typeof savegame.chromePoints !== "undefined") chromePoints = savegame.chromePoints;
+	}
+	window.onload = load;
+	window.beforeunload = load;
+	</script>
 </head>
 <body onunload="logCP();">
 	<!--Back Arrow-->
 	<a href="index.html"><img src="img\backarrow.png" alt="backarrow" class="backarrow"></img></a>
-	<br/>
-	<div class="ride_controls">
-		<a id="toggle" href="#" >Start Trip</a>
-		<br/>
-		<a id="reset" href="#" >Clear Trip</a>
-		<div id="count">0 Points</div>
-		<div id="location">Unknown</div>
-		<div id="distance">0 miles</div>
+	<br></br>
+	<div class="ride_controls" width="100%">
+		<a id="toggle" href="#" class="trip" width="100%">Start Trip</a>
+		<a id="reset" href="#" class="clearTrip" width="100%">Clear Trip</a>
+		<br></br>
+		<p><span id="count">0 Points</span> | <span id="distance">0 Miles</span> <br></br> <span id="location">Unknown</span></p> 
 	</div>
 
 	<script type="text/javascript">
 		
  		var pts = [];				// All the GPS points
  		var distIndex = 1;			// Index for distance calculation
- 		var totalDistance = 10.0;	// Total distance travelled
+ 		var totalDistance = 0.0;	// Total distance travelled
  		var currentLat = 0.0;		// Current latitude
 		var currentLng = 0.0;		// Current longitude
 		var accuracy = 0.0;			// Current accuracy in miles
@@ -88,7 +87,6 @@
  				currentLng = 0;
  				accuracy = 0;
  				updateStatus();
- 				clearMarkers();
  			}
  		})
  		$("#map").click(function(evt){
@@ -98,7 +96,7 @@
 		
  		function updateStatus(){
  			$("#count").html(pts.length + " Points");
- 			$("#location").html("(" + currentLat.toFixed(4) + "," + currentLng.toFixed(4) + ") <br />&plusmn;" + accuracy.toFixed(4) + "miles");
+ 			$("#location").html("(" + currentLat.toFixed(2) + "," + currentLng.toFixed(2) + ") <br />&plusmn;" + accuracy.toFixed(2) + "miles");
  			for(var i=distIndex;i<pts.length;i++){
  				totalDistance += distance(
  					pts[i-1].coords.latitude,
@@ -108,7 +106,7 @@
  				);
  			}
  			distIndex = pts.length;
- 			$("#distance").html(totalDistance.toFixed(4) + " miles");
+ 			$("#distance").html(totalDistance.toFixed(2) + " miles");
  		}
 
  		function startGps(){
