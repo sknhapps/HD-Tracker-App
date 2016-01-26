@@ -23,14 +23,17 @@
     background-image: linear-gradient(to right, #ccc, #333, #ccc);
 	width:75%;
  }
+ p {
+	 text-align: center;
+ }
  
  /*Controls*/
  .backarrow {
-	 position: relative !important;
-	 top: 5px !important;
-	 left: 5px !important;
+	 position: absolute !important;
+	 bottom: 5px !important;
+	 right: 5px !important;
 	 width: 10% !important;
-	 height: 10% !important;
+	 height: 6% !important;
  }
 
 /*Main Menu*/
@@ -48,6 +51,31 @@
 }
 
 /*Showcase*/
+.trophies {
+	text-align:center;
+	width:100%;
+	height:30%;
+	margin:auto;
+}
+.mycycle {
+	text-align:center;
+	padding-top:10px;
+}
+.motorcycleImage {
+	border:2px solid black;
+	padding:2px;
+}
+.parentChromePoints {
+	padding: 8%;
+}
+.tickerChromePoints {
+	text-align:center;
+	border:1px solid black;
+	background-color:#FF6A00;
+	color:white;
+	border-radius:4px;
+	position: relative;
+}
 
 /*Ride*/
  .ride_controls {

@@ -27,9 +27,44 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+		<script type="text/javascript" src="js/index.js"></script>
         <title>Showcase</title>
+		
+		<!--Load variables-->
+		<script>
+		function load() {
+			var savegame = JSON.parse(localStorage.getItem("save"));
+			var unlocked = JSON.parse(localStorage.getItem("achievements"));
+			if (typeof savegame.chromePoints !== "undefined") chromePoints = savegame.chromePoints;
+			if (typeof unlocked.fiftycp !== "undefined") fiftycp = unlocked.fiftycp;
+			document.getElementById('chromePoints').innerHTML = chromePoints;
+		}
+		window.onload = load;
+		</script>
     </head>
-    <body>
+    <body onload="updateAchievement();">
+		<!--Trophies-->
+		<p><i>Trophies</i></p>
+		<div class="trophies">
+			<img id="trophy" alt="No Trophies" src="" width="17%" height="17%"></img>
+		</div>
+		<!--Divider that looks like a shelf-->
+		<hr>
+		<!--Personal motorcycle & name-->
+		<div class="mycycle">
+			<div class="motorcycleImage">
+				<img src="img\mycycle.png" alt="mycycle" width="90%" height="90%"></img>
+			</div>
+			<p><i>Your Ride:</i><br><span id="motorcycleName">1910 Harley</span></p>
+		</div>
+		<!--Line break for page spacing-->
+		<hr>
+		<!--ChromePoints display-->
+		<div class="parentChromePoints">
+			<div class="tickerChromePoints">
+				<p>ChomePoints:<br><span id="chromePoints">0</span></p>
+			</div>
+		</div>
 		<!--Back Arrow-->
 		<a href="index.html"><img src="img\backarrow.png" alt="backarrow" class="backarrow"></img></a>
     </body>

@@ -35,13 +35,15 @@
 	<script>
 	function load() {
 		var savegame = JSON.parse(localStorage.getItem("save"));
+		var unlocked = JSON.parse(localStorage.getItem("achievements"));
 		if (typeof savegame.chromePoints !== "undefined") chromePoints = savegame.chromePoints;
+		if (typeof unlocked.fiftycp !== "undefined") fiftycp = unlocked.fiftycp;
 	}
 	window.onload = load;
 	window.beforeunload = load;
 	</script>
 </head>
-<body onunload="logCP();">
+<body onunload="logCP();" onunload="updateAchievement();">
 	<!--Back Arrow-->
 	<a href="index.html"><img src="img\backarrow.png" alt="backarrow" class="backarrow"></img></a>
 	<br></br>
@@ -56,7 +58,7 @@
 		
  		var pts = [];				// All the GPS points
  		var distIndex = 1;			// Index for distance calculation
- 		var totalDistance = 0.0;	// Total distance travelled
+ 		var totalDistance = 50.0;	// Total distance travelled
  		var currentLat = 0.0;		// Current latitude
 		var currentLng = 0.0;		// Current longitude
 		var accuracy = 0.0;			// Current accuracy in miles

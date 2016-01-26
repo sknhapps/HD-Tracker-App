@@ -19,6 +19,9 @@
  
 var chromePoints = 0;		// Value of the user's accrued chromePoints
 
+//Achievement Variables
+var fiftycp = false;			// Achievement for earning 50 ChromePoints
+
 
 //Log chromepoints to database
 function logCP(){
@@ -27,10 +30,27 @@ function logCP(){
 	}
 	localStorage.setItem("save",JSON.stringify(save));
 };
+//Achievement Updates
+function updateAchievement(){
+	if (chromePoints >= 50) {
+		fiftycp = true;
+	} else {
+		fiftycp = false;
+	}
+	var achievements = {
+		fiftycp: fiftycp,
+	}
+	localStorage.setItem("achievements",JSON.stringify(achievements));
+	if (fiftycp) {
+		document.getElementById('trophy').src = "img/Trophies/achfcp.png";
+		document.getElementById('trophy').title = "Achievement: 50+ ChromePoints Earned";
+	} 
+}
 //Reset profile
 function resetProfile(){
 	if (confirm("Would you like to reset your profile?")) {
 		localStorage.removeItem("save");
+		localStorage.removeItem("achievements");
 		location.reload();
 	}
 }
