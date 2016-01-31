@@ -16,13 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
-var chromePoints = 0;		// Value of the user's accrued chromePoints
+// General Variables
+var chromePoints = 0;																				// Value of the user's accrued chromePoints
+var motorcycleName = "1910 Harley";																	// Motorcycle Name
+// Achievement Variables
+var fiftycp = false;																				// Achievement for earning 50 ChromePoints
 
-//Achievement Variables
-var fiftycp = false;			// Achievement for earning 50 ChromePoints
-
-
+//Rename motorcycle
+function nameCycle(){
+	motorcycleName = prompt("Name your ride:");
+	localStorage.setItem("motorcycleName",JSON.stringify(motorcycleName));
+	document.getElementById("motorcycleName").innerHTML = motorcycleName;
+}
 //Log chromepoints to database
 function logCP(){
 	var save = {
@@ -51,6 +56,7 @@ function resetProfile(){
 	if (confirm("Would you like to reset your profile?")) {
 		localStorage.removeItem("save");
 		localStorage.removeItem("achievements");
+		localstorage.removeItem("motorcycleName");
 		location.reload();
 	}
 }

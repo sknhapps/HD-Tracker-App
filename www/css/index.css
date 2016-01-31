@@ -57,24 +57,52 @@
 	height:30%;
 	margin:auto;
 }
+.ach {
+	font-family: "courier new";
+	background-color: #FF6A00;
+	color: white;
+}
 .mycycle {
+	margin:auto;
+	height:250px;
+	width:300px;
 	text-align:center;
-	padding-top:10px;
 }
 .motorcycleImage {
 	border:2px solid black;
-	padding:2px;
-}
-.parentChromePoints {
-	padding: 8%;
+	position: relative; top: 50%; transform: translateY(-54%);
 }
 .tickerChromePoints {
+	margin:auto;
 	text-align:center;
 	border:1px solid black;
 	background-color:#FF6A00;
 	color:white;
 	border-radius:4px;
 	position: relative;
+}
+.cycleName {
+	margin:auto;
+	text-align:center;
+}
+.imageControls {
+	text-align:center;
+	margin:auto;
+}
+.rename {
+	margin:auto;
+	text-align:center;
+	font-size:12px;
+	color: white;
+	background-color: #FF6A00;
+}
+.upload {
+	margin:auto;
+	padding-bottom:2px;
+	text-align:center;
+	font-size:12px;
+	color: white;
+	background-color: #FF6A00;
 }
 
 /*Ride*/

@@ -35,35 +35,41 @@
 		function load() {
 			var savegame = JSON.parse(localStorage.getItem("save"));
 			var unlocked = JSON.parse(localStorage.getItem("achievements"));
+			var motorcycleName_ = JSON.parse(localStorage.getItem("motorcycleName"));
 			if (typeof savegame.chromePoints !== "undefined") chromePoints = savegame.chromePoints;
 			if (typeof unlocked.fiftycp !== "undefined") fiftycp = unlocked.fiftycp;
+			if (typeof motorcycleName_.motorcycleName !== "undefined") motorcycleName_ = motorcycleName_.motorcycleName;
 			document.getElementById('chromePoints').innerHTML = chromePoints;
+			document.getElementById('motorcycleName').innerHTML = motorcycleName_;
 		}
 		window.onload = load;
 		</script>
     </head>
     <body onload="updateAchievement();">
 		<!--Trophies-->
-		<p><i>Trophies</i></p>
 		<div class="trophies">
-			<img id="trophy" alt="No Trophies" src="" width="17%" height="17%"></img>
+			<p class="ach">Achievements</p>
+			<img id="trophy" alt="*dust*" src="" width="17%" height="17%"></img>
 		</div>
 		<!--Divider that looks like a shelf-->
 		<hr>
 		<!--Personal motorcycle & name-->
 		<div class="mycycle">
+			<p class="cycleName">"<span id="motorcycleName">1910 Harley</span>"</p>
 			<div class="motorcycleImage">
-				<img src="img\mycycle.png" alt="mycycle" width="90%" height="90%"></img>
+				<img id="myBike" src="img\mycycle.png" alt="mycycle" width="90%" height="90%"></img>
 			</div>
-			<p><i>Your Ride:</i><br><span id="motorcycleName">1910 Harley</span></p>
+		</div>
+		</div>
+		<div class="imageControls">
+			<button type="button" class="rename" onclick="nameCycle();">Rename</button>	
 		</div>
 		<!--Line break for page spacing-->
 		<hr>
+		<br/>
 		<!--ChromePoints display-->
-		<div class="parentChromePoints">
-			<div class="tickerChromePoints">
-				<p>ChomePoints:<br><span id="chromePoints">0</span></p>
-			</div>
+		<div class="tickerChromePoints">
+			<p>ChomePoints:<br><span id="chromePoints">0</span></p>
 		</div>
 		<!--Back Arrow-->
 		<a href="index.html"><img src="img\backarrow.png" alt="backarrow" class="backarrow"></img></a>
