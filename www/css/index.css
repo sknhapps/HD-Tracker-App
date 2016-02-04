@@ -41,14 +41,6 @@
 	text-align: center;
 	display:inline-block;
 }
-.credits {
-	text-align:center;
-	font-size:13px;
-	font-family: "Courier New";
-	bottom: 0px;
-	position:fixed;
-	width:100%;
-}
 
 /*Showcase*/
 .trophies {
@@ -70,7 +62,9 @@
 }
 .motorcycleImage {
 	border:2px solid black;
-	position: relative; top: 50%; transform: translateY(-54%);
+	position: relative; 
+	top: 50%; 
+	transform: translateY(-54%);
 }
 .tickerChromePoints {
 	margin:auto;
@@ -96,14 +90,7 @@
 	color: white;
 	background-color: #FF6A00;
 }
-.upload {
-	margin:auto;
-	padding-bottom:2px;
-	text-align:center;
-	font-size:12px;
-	color: white;
-	background-color: #FF6A00;
-}
+
 
 /*Ride*/
  .ride_controls {
