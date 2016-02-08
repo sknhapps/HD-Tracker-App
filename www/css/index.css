@@ -56,6 +56,7 @@
 	background-color: #FF6A00;
 	color: white;
 	margin:auto;
+	font-size:20px;
 }
 .mycycle {
 	margin:auto;
@@ -63,6 +64,7 @@
 	transform: translateY(-1%);
 	border: 2px solid black;
 	border-radius:4px;
+	font-size:20px;
 }
 .tickerChromePoints {
 	margin:auto;
@@ -72,13 +74,14 @@
 	color:white;
 	border-radius:4px;
 	position: relative;
+	font-size:20px;
 }
 .buttonWrapper {
 	text-align:center;
 }
 .rename {
 	text-align:center;
-	font-size:12px;
+	font-size:20px;
 	color: white;
 	background-color: #FF6A00;
 	margin:auto;
